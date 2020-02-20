@@ -41,18 +41,18 @@ class Navbar extends Component {
     return (
       <Nav>
         <Title>
-          <i class="fas fa-space-shuttle"></i> Ecommerce
+          <i className="fas fa-space-shuttle"></i> Ecommerce
         </Title>
 
         <div>
           <label>Pesquisar:</label>
-          <Input type="text" placeholder="Valor mín" />
-          <Input type="text" placeholder="Valor máx" />
-          <Input type="text" placeholder="Nome" />
+          <Input type="number" placeholder="Valor mín" onChange={this.props.funcaomin} />
+          <Input type="number" placeholder="Valor máx" onChange={this.props.funcaomax}/>
+          <Input type="text" placeholder="Nome" onChange={this.props.funcaonome}/>
         </div>
 
         <CartButton>
-          <i class="fas fa-shopping-cart"></i>
+          <i className ="fas fa-shopping-cart"></i>
         </CartButton>
       </Nav>
     );

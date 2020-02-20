@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
-const Section = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-gap: 10px;
-  margin: 0.6rem;
-  width: 100%;
-`;
+// const Section = styled.section`
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr;
+//   grid-template-rows: 1fr 1fr;
+//   grid-gap: 10px;
+//   margin: 0.6rem;
+//   width: 100%;
+// `;
 
 const Main = styled.main`
   display: grid;
@@ -38,6 +38,7 @@ const Img = styled.img`
   width: 100%;
   height: 300px;
   border: 1px solid #444;
+  object-fit: cover;
 `;
 
 const Div = styled.div`
@@ -66,13 +67,14 @@ class Products extends Component {
     this.state = {};
   }
 
+
   render() {
     const showProducts = this.props.products.map((el, index) => {
       return (
-        <Article>
+        <Article key="index">
           <Img src={el.imgLink} alt="Imagem de um satélite" />
           <ItemTitle>
-            {el.name} {el.id} - R$ {el.price}
+            {el.name} - R$ {el.price},00
           </ItemTitle>
           <hr></hr>
           <Div>

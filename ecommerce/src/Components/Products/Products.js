@@ -62,6 +62,7 @@ const Button = styled.button`
 class Products extends Component {
   constructor(props) {
     super(props);
+
     this.state = {};
   }
 
@@ -71,7 +72,7 @@ class Products extends Component {
         <Article>
           <Img src={el.imgLink} alt="Imagem de um satélite" />
           <ItemTitle>
-            Satelite {el.id} - R$ {el.price}
+            {el.name} {el.id} - R$ {el.price}
           </ItemTitle>
           <hr></hr>
           <Div>

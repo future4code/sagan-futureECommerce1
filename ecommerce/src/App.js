@@ -76,8 +76,7 @@ class App extends Component {
     }; 
   }
 
-  filterValueMin = (e) => { 
-    console.log("olaaa")
+  filterValueMin = (e) => {
     this.setState ({
         valormin: e.target.value
       })
@@ -130,7 +129,6 @@ class App extends Component {
     const cart = JSON.parse(cartString) 
     
     if(cart){
-      console.log("opameu")
       return (
         <div className="App">
           <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
@@ -140,8 +138,7 @@ class App extends Component {
         </div>
       );
     }
-    else{
-      console.log("eitaa")
+    else
       return (
         <div className="App">
           <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>

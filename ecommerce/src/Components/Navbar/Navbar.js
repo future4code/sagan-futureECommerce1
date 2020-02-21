@@ -62,14 +62,13 @@ class Navbar extends Component {
             onChange={this.props.funcaonome}
           />
         </div>
-
-        <CartButton
-          onClick={() => {
-            this.props.showCart();
-          }}
-        >
-          <i className="fas fa-shopping-cart"></i> {this.props.total.length}
-        </CartButton>
+          <CartButton
+            onClick={() => {
+              this.props.showCart();
+            }}
+          >
+            <i className="fas fa-shopping-cart"></i> {this.props.total.length}
+          </CartButton>
       </Nav>
     );
   }

@@ -152,6 +152,7 @@ class App extends Component {
 
   render() {
     let listaDeProdutos = [...this.state.products];
+    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase());
     listaDeProdutos = listaDeProdutos.filter(item => {
       if (this.state.valormax === "") {
         return item.price >= this.state.valormin && item.price < Infinity;
@@ -161,8 +162,7 @@ class App extends Component {
         );
       }
     });
-    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase());
-
+    
     return (
       <div className="App">
         <Navbar

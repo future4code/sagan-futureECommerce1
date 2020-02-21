@@ -64,9 +64,27 @@ class Products extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      cart:[],
+    };
+  }
+  componentDidUpdate() {
+    localStorage.setItem("cartItens", JSON.stringify(this.state.cart));
   }
 
+  componentDidMount() {
+      const cartString = localStorage.getItem("cartItens")
+      const cart = JSON.parse(cartString)
+      this.setState({ cart })
+  }
+  addToCart(id){
+
+     this.setState({cart: this.props.products.filter(item =>{
+       return item.id === id
+     })})
+    
+    
+  }
 
   render() {
     const showProducts = this.props.products.map((el, index) => {
@@ -79,7 +97,7 @@ class Products extends Component {
           <hr></hr>
           <Div>
             <p>{el.description}</p>
-            <Button>
+            <Button onClick={() => this.addToCart(el.id)}>
               <i class="fas fa-cart-plus"></i> Adicionar ao carrinho
             </Button>
           </Div>

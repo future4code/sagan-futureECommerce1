@@ -63,44 +63,30 @@ const Button = styled.button`
 class Products extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
+  }
+  // componentDidUpdate() {
+  //   localStorage.setItem("cartItens", JSON.stringify(this.state.cart));
+  // }
 
-    this.state = {
-      cart:[''],
-    };
-  }
-  componentDidUpdate() {
-    
-    localStorage.setItem("cartItens", JSON.stringify(this.state.cart));
-  }
+  // componentDidMount() {
+  //   const cartString = localStorage.getItem("cartItens");
+  //   const cart = JSON.parse(cartString);
 
-  componentDidMount() {
-      
-      const cartString = localStorage.getItem("cartItens")
-      const cart = JSON.parse(cartString)
+  //   if (cart === null) {
+  //     this.setState({ cart: [""] });
+  //   } else {
+  //     this.setState({ cart });
+  //   }
+  // }
 
-      
-      if(cart===null){
-        this.setState({ cart: [""] })
-      }
-      else{
-        this.setState({ cart })
-      }
-      
-  }
-  addToCart(id){
-    
-    const item = this.props.products.filter(item =>{
-      return item.id === id
-    })
-    
-    const cart = [...this.state.cart,item[0]]
-      this.setState({cart: cart })
-      window.location.reload()
-  }
+  //   const cart = [...this.state.cart, item[0]];
+  //   this.setState({ cart: cart });
+  //   window.location.reload();
+  // }
 
   render() {
     const showProducts = this.props.products.map((el, index) => {
-      
       return (
         <Article key="index">
           <Img src={el.imgLink} alt="Imagem de um satélite" />
@@ -110,7 +96,11 @@ class Products extends Component {
           <hr></hr>
           <Div>
             <p>{el.description}</p>
-            <Button onClick={() => this.addToCart(el.id)}>
+            <Button
+              onClick={() => {
+                this.props.addToCart(el.id);
+              }}
+            >
               <i class="fas fa-cart-plus"></i> Adicionar ao carrinho
             </Button>
           </Div>

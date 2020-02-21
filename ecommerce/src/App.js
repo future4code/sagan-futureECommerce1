@@ -5,12 +5,15 @@ import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Products from "./Components/Products/Products";
-import Search from "./Components/Search/Search";
+// import Search from "./Components/Search/Search";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      valormin: "",
+      valormax: Infinity,
+      valornome: "",
       products: [
         {
           id: 1,
@@ -19,7 +22,7 @@ class App extends Component {
             "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages-assets.nasa.gov%2Fimage%2Fs48-05-024%2Fs48-05-024~thumb.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "20.00"
+          price: 20
         },
         {
           id: 2,
@@ -28,7 +31,7 @@ class App extends Component {
             "https://files.slack.com/files-pri/TLAVDH7C2-FU91EDCBX/080314-space-vanguard-hsmall-1130a.grid-6x2.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "40.00"
+          price: 40
         },
         {
           id: 3,
@@ -37,7 +40,7 @@ class App extends Component {
             "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages-assets.nasa.gov%2Fimage%2Fsts088-349-006%2Fsts088-349-006~thumb.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "60.00"
+          price: 60
         },
         {
           id: 4,
@@ -46,7 +49,7 @@ class App extends Component {
             "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages-assets.nasa.gov%2Fimage%2Fsts088-354-031%2Fsts088-354-031~thumb.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "80.00"
+          price: 80
         },
         {
           id: 5,
@@ -55,26 +58,55 @@ class App extends Component {
             "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fimages-assets.nasa.gov%2Fimage%2Fsts077-711-039%2Fsts077-711-039~thumb.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "1100.00"
+          price: 1100
         },
         {
           id: 6,
           name: "Mambo 5",
           imgLink:
-            "https://files.slack.com/files-pri/TLAVDH7C2-FU91EDHHB/article-migration-image-black-knight-satellite-mystery-decoded-768x432.jpg",
+            "https://images-assets.nasa.gov/image/51I-S-237/51I-S-237~thumb.jpg",
           description:
             "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
-          price: "400.00"
+          price: 400
         }
       ]
-    };
+    }; 
+  }
+
+  filterValueMin = (e) => { 
+    this.setState ({
+        valormin: e.target.value
+      })
+  }
+
+  filterValueMax = (e) => {
+    this.setState({
+      valormax: e.target.value
+    })
+  }
+
+  filterName = (e) => {
+    this.setState({
+      valornome: e.target.value
+    })
   }
 
   render() {
+    let listaDeProdutos = [...this.state.products]
+    listaDeProdutos = listaDeProdutos.filter((item) => {
+      if (this.state.valormax === "" ){
+        return item.price >= this.state.valormin && item.price < Infinity
+      }
+      else {
+        return item.price >= this.state.valormin && item.price <= this.state.valormax
+      }
+    })
+    
+
     return (
       <div className="App">
-        <Navbar />
-        <Products products={this.state.products} />
+        <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
+        <Products products={listaDeProdutos} />
         <Footer />
       </div>
     );
@@ -82,3 +114,4 @@ class App extends Component {
 }
 
 export default App;
+

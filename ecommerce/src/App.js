@@ -77,6 +77,7 @@ class App extends Component {
   }
 
   filterValueMin = (e) => { 
+    console.log("olaaa")
     this.setState ({
         valormin: e.target.value
       })
@@ -115,6 +116,7 @@ class App extends Component {
 
   render() {
     let listaDeProdutos = [...this.state.products]
+    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase())
     listaDeProdutos = listaDeProdutos.filter((item) => {
       if (this.state.valormax === "" ){
         return item.price >= this.state.valormin && item.price < Infinity
@@ -123,21 +125,23 @@ class App extends Component {
         return item.price >= this.state.valormin && item.price <= this.state.valormax
       }
     })
-    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase())
+    
     const cartString = localStorage.getItem("cartItens")
     const cart = JSON.parse(cartString) 
     
     if(cart){
+      console.log("opameu")
       return (
         <div className="App">
           <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
           <Products products={listaDeProdutos} />
-          <Cart cart={cart}/>          
+          <Cart cart={this.state.products}/>          
           <Footer />
         </div>
       );
     }
     else{
+      console.log("eitaa")
       return (
         <div className="App">
           <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>

@@ -7,7 +7,23 @@ import Footer from "./Components/Footer/Footer";
 import Products from "./Components/Products/Products";
 import styled from "styled-components";
 import Cart from "./Components/Cart/Cart";
-// import Search from "./Components/Search/Search";
+import { createGlobalStyle } from "styled-components";
+
+const GlobalStyle = createGlobalStyle`
+  table, th, td {
+    border: 1px solid #b8b8b8;
+  }
+
+  th {
+    background: #444;
+    color: #f4f4f4;
+    padding: 0.2rem;
+  }
+
+  td {
+    padding: 0.2rem;
+  }
+`;
 
 class App extends Component {
   constructor(props) {
@@ -16,6 +32,18 @@ class App extends Component {
       valormin: "",
       valormax: Infinity,
       valornome: "",
+      showCart: false,
+      cart: [
+        // {
+        //   id: 2,
+        //   name: "Moonwalk 44",
+        //   imgLink:
+        //     "https://files.slack.com/files-pri/TLAVDH7C2-FU91EDCBX/080314-space-vanguard-hsmall-1130a.grid-6x2.jpg",
+        //   description:
+        //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, maxime.",
+        //   price: 40
+        // }
+      ],
       products: [
         {
           id: 1,
@@ -75,6 +103,20 @@ class App extends Component {
     };
   }
 
+  showCart = () => {
+    this.state.showCart === false
+      ? this.setState({ showCart: true })
+      : this.setState({ showCart: false });
+  };
+
+  addToCart = id => {
+    const item = this.state.products.find(item => {
+      return item.id === id;
+    });
+    const newItem = [...this.state.cart, item];
+    this.setState({ cart: newItem });
+  };
+
   filterValueMin = e => {
     this.setState({
       valormin: e.target.value
@@ -120,35 +162,22 @@ class App extends Component {
       }
     });
     listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase());
-    const cartString = localStorage.getItem("cartItens");
-    const cart = JSON.parse(cartString);
 
-    if (cart) {
-      return (
-        <div className="App">
-          <Navbar
-            funcaomin={this.filterValueMin}
-            funcaomax={this.filterValueMax}
-            funcaonome={this.filterName}
-          />
-          <Products products={listaDeProdutos} />
-          <Cart cart={cart} />
-          <Footer />
-        </div>
-      );
-    } else {
-      return (
-        <div className="App">
-          <Navbar
-            funcaomin={this.filterValueMin}
-            funcaomax={this.filterValueMax}
-            funcaonome={this.filterName}
-          />
-          <Products products={listaDeProdutos} />
-          <Footer />
-        </div>
-      );
-    }
+    return (
+      <div className="App">
+        <Navbar
+          total={this.state.cart}
+          showCart={this.showCart}
+          funcaomin={this.filterValueMin}
+          funcaomax={this.filterValueMax}
+          funcaonome={this.filterName}
+        />
+        {this.state.showCart ? <Cart cart={this.state.cart} /> : null}
+        <Products products={listaDeProdutos} addToCart={this.addToCart} />
+        <Footer />
+        <GlobalStyle />
+      </div>
+    );
   }
 }
 

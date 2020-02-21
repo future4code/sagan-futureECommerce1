@@ -46,13 +46,29 @@ class Navbar extends Component {
 
         <div>
           <label>Pesquisar:</label>
-          <Input type="number" placeholder="Valor mín" onChange={this.props.funcaomin} />
-          <Input type="number" placeholder="Valor máx" onChange={this.props.funcaomax}/>
-          <Input type="text" placeholder="Nome" onChange={this.props.funcaonome}/>
+          <Input
+            type="number"
+            placeholder="Valor mín"
+            onChange={this.props.funcaomin}
+          />
+          <Input
+            type="number"
+            placeholder="Valor máx"
+            onChange={this.props.funcaomax}
+          />
+          <Input
+            type="text"
+            placeholder="Nome"
+            onChange={this.props.funcaonome}
+          />
         </div>
 
-        <CartButton>
-          <i className ="fas fa-shopping-cart" ></i>
+        <CartButton
+          onClick={() => {
+            this.props.showCart();
+          }}
+        >
+          <i className="fas fa-shopping-cart"></i> {this.props.total.length}
         </CartButton>
       </Nav>
     );

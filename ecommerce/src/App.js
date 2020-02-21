@@ -91,6 +91,23 @@ class App extends Component {
     })
   }
 
+  filterByName(name){
+    let prods = this.state.products
+    if(name !== "") {
+      prods = prods.filter(item =>{
+        const nameTest = item.name.toLowerCase()
+        if(nameTest.includes(name)){
+          return item
+        }
+       
+      })
+      return prods
+    }
+    else{
+      return prods
+    }
+  }
+
   render() {
     let listaDeProdutos = [...this.state.products]
     listaDeProdutos = listaDeProdutos.filter((item) => {
@@ -101,6 +118,7 @@ class App extends Component {
         return item.price >= this.state.valormin && item.price <= this.state.valormax
       }
     })
+    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase())
     
 
     return (

@@ -65,29 +65,42 @@ class Products extends Component {
     super(props);
 
     this.state = {
-      cart:[],
+      cart:[''],
     };
   }
   componentDidUpdate() {
+    
     localStorage.setItem("cartItens", JSON.stringify(this.state.cart));
   }
 
   componentDidMount() {
+      
       const cartString = localStorage.getItem("cartItens")
       const cart = JSON.parse(cartString)
-      this.setState({ cart })
+
+      
+      if(cart===null){
+        this.setState({ cart: [""] })
+      }
+      else{
+        this.setState({ cart })
+      }
+      
   }
   addToCart(id){
-
-     this.setState({cart: this.props.products.filter(item =>{
-       return item.id === id
-     })})
     
+    const item = this.props.products.filter(item =>{
+      return item.id === id
+    })
     
+    const cart = [...this.state.cart,item[0]]
+      this.setState({cart: cart })
+      window.location.reload()
   }
 
   render() {
     const showProducts = this.props.products.map((el, index) => {
+      
       return (
         <Article key="index">
           <Img src={el.imgLink} alt="Imagem de um satélite" />

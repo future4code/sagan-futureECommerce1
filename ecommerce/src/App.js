@@ -5,7 +5,10 @@ import "./App.css";
 import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Products from "./Components/Products/Products";
+import styled from "styled-components";
+import Cart from "./Components/Cart/Cart"
 // import Search from "./Components/Search/Search";
+
 
 class App extends Component {
   constructor(props) {
@@ -108,6 +111,8 @@ class App extends Component {
     }
   }
 
+  
+
   render() {
     let listaDeProdutos = [...this.state.products]
     listaDeProdutos = listaDeProdutos.filter((item) => {
@@ -119,15 +124,29 @@ class App extends Component {
       }
     })
     listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase())
+    const cartString = localStorage.getItem("cartItens")
+    const cart = JSON.parse(cartString) 
     
-
-    return (
-      <div className="App">
-        <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
-        <Products products={listaDeProdutos} />
-        <Footer />
-      </div>
-    );
+    if(cart){
+      return (
+        <div className="App">
+          <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
+          <Products products={listaDeProdutos} />
+          <Cart cart={cart}/>          
+          <Footer />
+        </div>
+      );
+    }
+    else{
+      return (
+        <div className="App">
+          <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
+          <Products products={listaDeProdutos} />        
+          <Footer />
+        </div>
+      );
+    }
+    
   }
 }
 

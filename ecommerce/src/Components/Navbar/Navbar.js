@@ -52,7 +52,7 @@ class Navbar extends Component {
         </div>
 
         <CartButton>
-          <i className ="fas fa-shopping-cart"></i>
+          <i className ="fas fa-shopping-cart" ></i>
         </CartButton>
       </Nav>
     );

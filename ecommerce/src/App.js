@@ -6,9 +6,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import Footer from "./Components/Footer/Footer";
 import Products from "./Components/Products/Products";
 import styled from "styled-components";
-import Cart from "./Components/Cart/Cart"
+import Cart from "./Components/Cart/Cart";
 // import Search from "./Components/Search/Search";
-
 
 class App extends Component {
   constructor(props) {
@@ -73,82 +72,84 @@ class App extends Component {
           price: 400
         }
       ]
-    }; 
+    };
   }
 
-  filterValueMin = (e) => { 
-    this.setState ({
-        valormin: e.target.value
-      })
-  }
+  filterValueMin = e => {
+    this.setState({
+      valormin: e.target.value
+    });
+  };
 
-  filterValueMax = (e) => {
+  filterValueMax = e => {
     this.setState({
       valormax: e.target.value
-    })
-  }
+    });
+  };
 
-  filterName = (e) => {
+  filterName = e => {
     this.setState({
       valornome: e.target.value
-    })
-  }
+    });
+  };
 
-  filterByName(name){
-    let prods = this.state.products
-    if(name !== "") {
-      prods = prods.filter(item =>{
-        const nameTest = item.name.toLowerCase()
-        if(nameTest.includes(name)){
-          return item
+  filterByName(name) {
+    let prods = this.state.products;
+    if (name) {
+      prods = prods.filter(item => {
+        const nameTest = item.name.toLowerCase();
+        if (nameTest.includes(name)) {
+          return item;
         }
-       
-      })
-      return prods
-    }
-    else{
-      return prods
+      });
+      return prods;
+    } else {
+      return prods;
     }
   }
-
-  
 
   render() {
-    let listaDeProdutos = [...this.state.products]
-    listaDeProdutos = listaDeProdutos.filter((item) => {
-      if (this.state.valormax === "" ){
-        return item.price >= this.state.valormin && item.price < Infinity
+    let listaDeProdutos = [...this.state.products];
+    listaDeProdutos = listaDeProdutos.filter(item => {
+      if (this.state.valormax === "") {
+        return item.price >= this.state.valormin && item.price < Infinity;
+      } else {
+        return (
+          item.price >= this.state.valormin && item.price <= this.state.valormax
+        );
       }
-      else {
-        return item.price >= this.state.valormin && item.price <= this.state.valormax
-      }
-    })
-    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase())
-    const cartString = localStorage.getItem("cartItens")
-    const cart = JSON.parse(cartString) 
-    
-    if(cart){
+    });
+    listaDeProdutos = this.filterByName(this.state.valornome.toLowerCase());
+    const cartString = localStorage.getItem("cartItens");
+    const cart = JSON.parse(cartString);
+
+    if (cart) {
       return (
         <div className="App">
-          <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
+          <Navbar
+            funcaomin={this.filterValueMin}
+            funcaomax={this.filterValueMax}
+            funcaonome={this.filterName}
+          />
           <Products products={listaDeProdutos} />
-          <Cart cart={cart}/>          
+          <Cart cart={cart} />
           <Footer />
         </div>
       );
-    }
-    else{
+    } else {
       return (
         <div className="App">
-          <Navbar funcaomin={this.filterValueMin} funcaomax={this.filterValueMax} funcaonome={this.filterName}/>
-          <Products products={listaDeProdutos} />        
+          <Navbar
+            funcaomin={this.filterValueMin}
+            funcaomax={this.filterValueMax}
+            funcaonome={this.filterName}
+          />
+          <Products products={listaDeProdutos} />
           <Footer />
         </div>
       );
     }
-    
   }
 }
 
 export default App;
-

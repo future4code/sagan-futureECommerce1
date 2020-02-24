@@ -24,7 +24,7 @@
   </a>
 </p>
 
-![App Screenshot](futurechat.gif)
+![App Screenshot](ecommerce.gif)
 
 ---
 
